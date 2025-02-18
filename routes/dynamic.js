@@ -9,8 +9,8 @@ const students = [
   { name: 'Мосієвич Богдана Юріївна', city: 'Кропивницький', photo: 'frog.png',  about: 'Мене звати Богдана, я люблю котиків, вчуся в КПІ'}
 ];
 
-router.get('/', function(req, res, next) {
-  res.render('dynamic', { title: 'Dynamic Page', students: students});
+router.get('/', function(req, response, next) {
+  response.render('dynamic', { title: 'Dynamic Page', students: students});
 });
 
 module.exports = router;
