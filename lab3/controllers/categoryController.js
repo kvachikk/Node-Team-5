@@ -1,17 +1,11 @@
-const Task = require('../models/Task');
+const categoryService = require('../services/categoriesServices');
 
-exports.getTasks = async (req, res) => {
-    const tasks = await Task.find();
-    res.render('tasks', { tasks });
+exports.getCategories = async (req, res) => {
+    const categories = await categoryService.getCategoriesWithAsyncAwait();
+    res.render('categories', {title: 'Categories', categories: categories});
 };
 
-exports.createTask = async (req, res) => {
-    const { title, description } = req.body;
-    await Task.create({ title, description });
-    res.redirect('/tasks');
-};
-
-exports.deleteTask = async (req, res) => {
-    await Task.findByIdAndDelete(req.params.id);
-    res.redirect('/tasks');
-};
+exports.getCategoryById = async (req, res) => {
+    const response = await categoryService.getCategoryById(req.params.id);
+    res.render('category', {title: 'Category', data: response });
+}

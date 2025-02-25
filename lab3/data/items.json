@@ -1,0 +1,135 @@
+[
+  {
+    "id": 1,
+    "name": "iPhone 15 Pro",
+    "description": "Latest Apple flagship smartphone with A17 chip.",
+    "image": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.skyassets.com%2Fcontentstack%2Fassets%2Fblt143e20b03d72047e%2Fblt421b5c5318c15f83%2F6501b50cdc211726e3c3158c%2FSky_Mobile_PDP1_iPhone15Pro_Black_Titanium-PreOrder.png%3FimageManager%3Dtrue%26impolicy%3Dresize%26width%3D1000&f=1&nofb=1&ipt=ac01cfc25183b0c07821e1e16b32573b80ba5da265a347b7aa48c4cfc0fcd4e6&ipo=images",
+    "categoryId": 1
+  },
+  {
+    "id": 2,
+    "name": "Samsung Galaxy S23 Ultra",
+    "description": "Powerful Android smartphone with 200MP camera.",
+    "image": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.vecteezy.com%2Fsystem%2Fresources%2Fpreviews%2F022%2F722%2F945%2Foriginal%2Fsamsung-galaxy-s23-ultra-transparent-image-free-png.png&f=1&nofb=1&ipt=6745ccc27d55f2b00b1a7b3d6112938bcd5ec33605187f6fa2e2b75913645ee1&ipo=images",
+    "categoryId": 1
+  },
+  {
+    "id": 3,
+    "name": "MacBook Pro 16 M2",
+    "description": "Professional-grade laptop with Apple's M2 Max chip.",
+    "image": "https://crdms.images.consumerreports.org/prod/products/cr/models/408690-15-to-16-inch-laptops-apple-macbook-pro-16-12-core-m2-pro-512gb-16gb-10033979.png",
+    "categoryId": 2
+  },
+  {
+    "id": 4,
+    "name": "Asus ROG Zephyrus G14",
+    "description": "High-end gaming laptop with RTX 4080.",
+    "image": "https://dlcdnwebimgs.asus.com/gain/A1433BAB-3BC8-40BF-965C-B3E95E59BC61/w1000/h732",
+    "categoryId": 2
+  },
+  {
+    "id": 5,
+    "name": "iPad Pro 12.9",
+    "description": "Large-screen tablet with M2 chip and ProMotion.",
+    "image": "https://crdms.images.consumerreports.org/prod/products/cr/models/404002-9-inch-screen-and-larger-tablets-mobile-data-wifi-apple-ipad-pro-12-9-5g-128gb-2021-10020954.png",
+    "categoryId": 3
+  },
+  {
+    "id": 6,
+    "name": "Samsung Galaxy Tab S9",
+    "description": "Premium Android tablet with AMOLED display.",
+    "image": "https://titaniummobile.net/cdn/shop/files/S9TABULTRA.png?v=1690249145",
+    "categoryId": 3
+  },
+  {
+    "id": 7,
+    "name": "PlayStation 5",
+    "description": "Next-gen gaming console with ultra-fast SSD.",
+    "image": "https://static.wikia.nocookie.net/gran-turismofanon/images/4/46/Playstation-5-games-console-transparent-background-png-image.webp/revision/latest?cb=20250214210319",
+    "categoryId": 4
+  },
+  {
+    "id": 8,
+    "name": "Xbox Series X",
+    "description": "Powerful console with 4K gaming capabilities.",
+    "image": "https://pngimg.com/d/xbox_PNG101375.png",
+    "categoryId": 4
+  },
+  {
+    "id": 9,
+    "name": "NVIDIA RTX 4090",
+    "description": "Top-tier graphics card for extreme gaming.",
+    "image": "https://images.nvidia.com/aem-dam/Solutions/geforce/ada/news/rtx-40-series-graphics-cards-announcements/geforce-rtx-4090-product-photo-001-850px.png",
+    "categoryId": 5
+  },
+  {
+    "id": 10,
+    "name": "AMD Ryzen 9 7950X",
+    "description": "High-performance processor for gaming and productivity.",
+    "image": "https://img.telemart.ua/431984-580512-product_popup/amd-ryzen-9-7950x-45-50ghz-80mb-sam5-box-100-100000514wof.png",
+    "categoryId": 5
+  },
+  {
+    "id": 11,
+    "name": "Sony WH-1000XM5",
+    "description": "Noise-canceling wireless headphones.",
+    "image": "https://sony.scene7.com/is/image/sonyglobalsolutions/360-RA-category-icon-20221202?$S7Product$&fmt=png-alpha",
+    "categoryId": 6
+  },
+  {
+    "id": 12,
+    "name": "Apple AirPods Pro 2",
+    "description": "Premium wireless earbuds with active noise cancellation.",
+    "image": "https://png.pngtree.com/png-clipart/20230508/original/pngtree-airpods-png-image_9149137.png",
+    "categoryId": 6
+  },
+  {
+    "id": 13,
+    "name": "Canon EOS R5",
+    "description": "Professional mirrorless camera with 8K video recording.",
+    "image": "https://www.cla.canon.com/EOS_R5/english/images/01_main-banner_mobile.png",
+    "categoryId": 7
+  },
+  {
+    "id": 14,
+    "name": "Sony Alpha A7 IV",
+    "description": "Versatile full-frame mirrorless camera.",
+    "image": "https://sony.scene7.com/is/image/sonyglobalsolutions/og?$categorypdpnav$&fmt=png-alpha",
+    "categoryId": 7
+  },
+  {
+    "id": 15,
+    "name": "Amazon Echo Dot (5th Gen)",
+    "description": "Smart speaker with Alexa support.",
+    "image": "https://crdms.images.consumerreports.org/prod/products/cr/models/407823-smart-speakers-amazon-echo-dot-5th-gen-w-clock-10033746.png",
+    "categoryId": 8
+  },
+  {
+    "id": 16,
+    "name": "Google Nest Cam",
+    "description": "Smart security camera with 24/7 monitoring.",
+    "image": "https://storage.googleapis.com/support-kms-prod/SL4JFsCBlS9sfYDXj07VGJ9bEFqUgMFZ8b0s",
+    "categoryId": 8
+  },
+  {
+    "id": 17,
+    "name": "Logitech MX Master 3S",
+    "description": "High-end ergonomic mouse for productivity.",
+    "image": "https://yabloki.ua/media/cache/sylius_shop_product_original/b0/b2/misha-logitech-mx-master-3s-for-business-graphite_484d2073-6ea4-4173-9e06-00ed64b4fc35-3.png.webp",
+    "categoryId": 5
+  },
+  {
+    "id": 19,
+    "name": "Bose QuietComfort 45",
+    "description": "Premium noise-canceling headphones.",
+    "image": "https://assets.bose.com/content/dam/cloudassets/Bose_DAM/Web/consumer_electronics/global/products/headphones/QCUH-HEADPHONEARN/product_silo_images/AEM_PDP_GALLERY_BLACK-1.png/_jcr_content/renditions/cq5dam.web.320.320.png",
+    "categoryId": 6
+  },
+  {
+    "id": 20,
+    "name": "DJI Mini 3 Pro",
+    "description": "Compact drone with 4K HDR camera.",
+    "image": "https://www.digitec.ch/im/productimages/6/1/1/9/2/3/9/7/8/7/5/9/9/1/6/8/4/0/6/41728a36-5ecd-48e1-8ba4-2239366acdd1_cropped.png",
+    "categoryId": 7
+  }
+]
