@@ -1,0 +1,23 @@
+body {
+  padding: 50px;
+  background: #171717;
+  color: white;
+  font-size: 25px;
+  font-family:system-ui;
+}
+
+img {
+  margin-right: 10px;
+}
+
+a {
+  font-size: 30px;
+  color: #3498db;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 10px;
+}
+
+a:hover {
+  color: #2c3e50;
+}

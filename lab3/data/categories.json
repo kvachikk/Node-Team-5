@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "name": "Smartphones",
+    "description": "Latest smartphones from various brands",
+    "countItems": 2345
+  },
+  {
+    "id": 2,
+    "name": "Laptops",
+    "description": "Gaming, business, and personal laptops",
+    "countItems": 74
+  },
+  {
+    "id": 3,
+    "name": "Tablets",
+    "description": "Portable touchscreen devices",
+    "countItems": 836
+  },
+  {
+    "id": 4,
+    "name": "Gaming Consoles",
+    "description": "PlayStation, Xbox, and Nintendo consoles",
+    "countItems": 275
+  },
+  {
+    "id": 5,
+    "name": "PC Components",
+    "description": "Processors, graphics cards, RAM, and more",
+    "countItems": 23
+  },
+  {
+    "id": 6,
+    "name": "Audio & Headphones",
+    "description": "Speakers, earbuds, and professional headphones",
+    "countItems": 864
+  },
+  {
+    "id": 7,
+    "name": "Cameras",
+    "description": "DSLRs, mirrorless cameras, and accessories",
+    "countItems": 956
+  },
+  {
+    "id": 8,
+    "name": "Smart Home Devices",
+    "description": "Smart speakers, security cameras, and home automation",
+    "countItems": 752
+  }
+]

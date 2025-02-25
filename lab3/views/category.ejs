@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+<h1><%= data.category.name %></h1>
+<h2><%= data.category.description    %></h2>
+
+<div class="items-container">
+    <% data.items.forEach(i => { %>
+        <div class="card">
+            <img src="<%= i.image %>" alt="alt">
+            <h3><%= i.name %></h3>
+            <p><%= i.description %></p>
+            <p>
+                <button>Add to Cart</button>
+            </p>
+        </div>
+    <% }) %>
+</div>
+</body>
+</html>
