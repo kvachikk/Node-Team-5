@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css"/>
+</head>
+<body>
+
+<div class="ag-format-container">
+    <h1><%= title %></h1>
+    <div class="ag-courses_box">
+        <% categories.forEach(c => { %>
+            <div class="ag-courses_item">
+                <a href="<%= c.id %>" class="ag-courses-item_link">
+                    <div class="ag-courses-item_bg"></div>
+
+                    <div class="ag-courses-item_title">
+                        <%= c.name %>
+                    </div>
+
+                    <% if (c.countItems !== undefined) { %>
+                        <div class="ag-courses-item_date-box">
+                            Count Items: <span class="ag-courses-item_date"> <%= c.countItems %> </span>
+                        </div>
+                    <% } %>
+                </a>
+            </div>
+        <% }) %>
+    </div>
+</div>
+
+</body>
+</html>
