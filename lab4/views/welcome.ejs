@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><%= title %></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 </head>
 <body>
 
@@ -15,7 +15,7 @@
             <h1 class="mb-0"><%= title %></h1>
         </div>
         <div class="col-auto">
-            <a href="createGlobalCategoryForm" class="btn btn-primary">Додати сюди категорію</a>
+            <a href="showForm" class="btn btn-primary">Додати сюди категорію</a>
         </div>
     </div>
 
@@ -29,7 +29,17 @@
                         <% if (c.description) { %>
                             <p class="card-text"><%= c.description %></p>
                         <% } %>
-                        <a href="categories/<%= c.id %>" class="btn btn-primary">Переглянути</a>
+                        <div class="d-flex justify-content-between mt-3">
+                            <a href="categories/<%= c.id %>" class="btn btn-primary">Переглянути</a>
+                            <div>
+                                <a href="showUpdateForm/<%= c.id %>" class="btn btn-warning me-2">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <button type="button" class="btn btn-danger delete-category" data-category-id="<%= c.id %>">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -38,5 +48,44 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const deleteButtons = document.querySelectorAll('.delete-category');
+        const baseUrl = "<%= process.env.MAIN_URL %>";
+
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.getAttribute('data-category-id');
+
+                if (id) {
+                    const data = {
+                        id: id
+                    };
+
+                    fetch(`${baseUrl}/remove`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data)
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                const card = this.closest('.col');
+                                card.remove();
+                            } else {
+                                alert('Помилка при видаленні категорії');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Помилка:', error);
+                            alert('Сталася помилка при видаленні категорії');
+                        });
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>
