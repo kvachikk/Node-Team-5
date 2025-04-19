@@ -1,7 +1,7 @@
 const services = require('../services/categoriesServices');
 
-const getAllCategories = async (req, res) => {
-    const data = await services.getAllCategories();
+const getAll = async (req, res) => {
+    const data = await services.getAll();
     res.render('categoriesList', {title: 'Категорії', data: data});
 };
 
@@ -10,32 +10,50 @@ const getAllCategoriesByGlobalCategory = async (req, res) => {
     res.render('categoriesList', {title: 'Категорії', data: data, globalCategoryId: req.params.id});
 };
 
-const showCreateCategoryForm = async(req, res) => {
+const showCreateForm = async(req, res) => {
     res.render('createNewCategory', { title: 'Нова категорія',  globalCategoryId: req.params.globalCategoryId });
 };
 
-const processCreateCategory = async(req, res) => {
+const showUpdateForm = async (req, res) => {
+    const category = await services.getById(req.params.id);
+    res.render('updateGlobalCategoryForm', {category: category});
+};
+
+const create = async(req, res) => {
     try {
         const categoryData = { name: req.body.name, description: req.body.description, image_url: req.body.image_url, global_category_id: req.body.global_category_id, };
+        const newCategory = await services.create(categoryData);
 
-        const newCategory = await services.createCategory(categoryData);
-
-        if(newCategory) {
-            res.redirect('/categories/'+ req.body.global_category_id);
-        }
-
+        if(newCategory) res.redirect('/categories/'+ req.body.global_category_id);
     } catch (error) {
-        console.error('Error creating category:', error);
-        res.status(500).render('error', {
-            title: 'Помилка',
-            message: 'Не вдалося створити категорію'
-        });
+        res.status(500).json({ success: false });
+    }
+};
+
+const update = async (req, res) => {
+    try {
+        await services.update(req.body);
+        res.status(200).json({ success: true});
+    } catch (error) {
+        res.status(500).json({ success: false });
+    }
+};
+
+const remove = async (req, res) => {
+    try {
+        await services.remove(req.body.id);
+        res.status(200).json({ success: true});
+    } catch (error) {
+        res.status(500).json({ success: false });
     }
 };
 
 module.exports = {
-    showCreateCategoryForm,
-    processCreateCategory,
-    getAllCategories,
+    getAll,
+    create,
+    update,
+    remove,
+    showCreateForm,
+    showUpdateForm,
     getAllCategoriesByGlobalCategory,
 };

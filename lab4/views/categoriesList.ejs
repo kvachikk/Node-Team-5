@@ -5,6 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><%= title %></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .card {
+            position: relative;
+        }
+        .action-buttons {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 100;
+            display: flex;
+            gap: 5px;
+        }
+        .action-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: all 0.2s;
+        }
+        .action-btn:hover {
+            transform: scale(1.1);
+        }
+        .edit-btn {
+            color: #0d6efd;
+        }
+        .delete-btn {
+            color: #dc3545;
+        }
+    </style>
 </head>
 <body>
 
@@ -13,27 +47,92 @@
         <div class="col">
             <h1 class="mb-0"><%= title %></h1>
         </div>
+        <div class="col">
+            <a href="/" class="btn btn-back">Назад</a>
+        </div>
         <div class="col-auto">
             <a href="showCreateCategoryForm/<%= globalCategoryId %>" class="btn btn-primary">Додати сюди категорію</a>
         </div>
     </div>
 
     <div class="row row-cols-1 row-cols-md-3 g-4">
-    <% data.forEach(c => { %>
+        <% data.forEach(c => { %>
             <div class="col">
                 <div class="card h-100 shadow">
-                 <a href="/products/categories/<%= c.id %>" class="btn stretched-link">
-                     <img class="card-img-top" src="<%= c.image_url %>" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title"><%= c.name %></h5>
+                    <div class="action-buttons">
+                        <button class="action-btn edit-btn" data-id="<%= c.id %>" onclick="editCategory('<%= c.id %>')">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-btn delete-btn" data-id="<%= c.id %>" onclick="deleteCategory('<%= c.id %>', this)">
+                            <i class="fas fa-trash"></i>
+                        </button>
                     </div>
-                 </a>
+
+                    <a href="/products/categories/<%= c.id %>" class="text-decoration-none">
+                        <img class="card-img-top" src="<%= c.image_url %>" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="text-center"><%= c.name %></h5>
+                        </div>
+                    </a>
                 </div>
             </div>
         <% }) %>
     </div>
 </div>
 
+<!-- Modal для підтвердження видалення -->
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteConfirmModalLabel">Підтвердження видалення</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Ви впевнені, що хочете видалити цю категорію?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Скасувати</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">Видалити</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function editCategory(id) {
+        window.location.href = `/categories/showUpdateForm/${id}`;
+    }
+
+    function deleteCategory(id, button) {
+        const deleteModal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
+        deleteModal.show();
+
+        document.getElementById('confirmDelete').onclick = function() {
+            fetch('/categories/remove', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id: id })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const cardElement = button.closest('.col');
+                        cardElement.remove();
+                        deleteModal.hide();
+                    } else {
+                        alert('Помилка при видаленні категорії');
+                    }
+                })
+                .catch(error => {
+                    console.error('Помилка:', error);
+                    alert('Помилка при видаленні категорії');
+                });
+        };
+    }
+</script>
 </body>
 </html>

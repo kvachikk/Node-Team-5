@@ -3,9 +3,12 @@ const controller = require('../controllers/categoryController');
 
 const router = express.Router();
 
-router.get('/', controller.getAllCategories);
+router.get('/', controller.getAll);
 router.get('/:id', controller.getAllCategoriesByGlobalCategory);
-router.get('/showCreateCategoryForm/:globalCategoryId', controller.showCreateCategoryForm);
-router.post('/create', controller.processCreateCategory);
+router.post('/create', controller.create);
+router.put('/update', controller.update);
+router.delete('/remove', controller.remove);
+router.get('/showCreateCategoryForm/:globalCategoryId', controller.showCreateForm);
+router.get('/showUpdateForm/:id', controller.showUpdateForm);
 
 module.exports = router;

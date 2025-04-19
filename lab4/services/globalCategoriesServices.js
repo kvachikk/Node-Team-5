@@ -28,8 +28,7 @@ const update = async (data) => {
 };
 
 const remove = async (id) => {
-    const query = 'DELETE FROM global_categories WHERE id = $1';
-    const results = await executeQuery(query, [id]);
+    const results = await executeQuery('DELETE FROM global_categories WHERE id = $1', [id]);
     return results[0];
 };
 

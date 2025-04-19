@@ -13,12 +13,16 @@
         <div class="col">
             <h1 class="mb-0">Оновлення</h1>
         </div>
+        <div class="col">
+            <a href="/categories/<%=category.global_category_id%>" class="btn btn-back">Назад</a>
+        </div>
     </div>
 
     <div class="card shadow">
         <div class="card-body">
             <form id="updateCategoryForm">
-                <input type="hidden" id="categoryId" name="id" value="<%= category.id %>">
+                <input type="hidden" id="id" value="<%= category.id %>">
+                <input type="hidden" id="global-category-id" value="<%= category.global_category_id %>">
 
                 <div class="mb-3">
                     <label for="name" class="form-label">Назва категорії</label>
@@ -52,15 +56,16 @@
 
         updateForm.addEventListener('submit', function(event) {
             event.preventDefault();
-
+            const globalCategoryId = document.getElementById('global-category-id').value;
             const data = {
-                id: document.getElementById('categoryId').value,
+                id: document.getElementById('id').value,
                 name: document.getElementById('name').value,
                 description: document.getElementById('description').value,
-                image_url: document.getElementById('image_url').value
+                image_url: document.getElementById('image_url').value,
+                global_category_id: globalCategoryId
             };
 
-            fetch(`${baseUrl}/update`, {
+            fetch(`${baseUrl}/categories/update`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -69,7 +74,7 @@
             })
             .then(response => {
                 if (response.ok) {
-                    window.location.href = '/';
+                    window.location.href = `/categories/${globalCategoryId}`;
                 } else {
                     alert('Помилка при оновленні категорії');
                 }
