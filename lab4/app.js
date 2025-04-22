@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const dbservices = require('./database/services');
+const services = require('./database/services');
 
 const categoriesRoute = require('./routes/categories');
 const globalCategoriesRoute = require('./routes/globalCategory');
@@ -41,7 +41,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-dbservices.testConnection()
+services.testConnection()
     .then(result => {
       console.log(result.message);
     })

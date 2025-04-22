@@ -1,4 +1,5 @@
 const services = require('../services/categoriesServices');
+const {getJoinedListCategories} = require("../services/categoriesServices");
 
 const getAll = async (req, res) => {
     const data = await services.getAll();
@@ -16,7 +17,18 @@ const showCreateForm = async(req, res) => {
 
 const showUpdateForm = async (req, res) => {
     const category = await services.getById(req.params.id);
-    res.render('updateGlobalCategoryForm', {category: category});
+    res.render('updateCategoryForm', {category: category});
+};
+
+const showMoveForm = async (req, res) => {
+    try {
+        const globalCategories = await services.getGlobalCategories();
+        const dualList = await getJoinedListCategories();
+
+        res.render('moveCategoriesForm', {title: 'Переміщення категорій', globalCategories: globalCategories, categories: dualList});
+    } catch (error) {
+        res.status(500).render('error', { message: `Помилка: ${error.message}` });
+    }
 };
 
 const create = async(req, res) => {
@@ -26,7 +38,7 @@ const create = async(req, res) => {
 
         if(newCategory) res.redirect('/categories/'+ req.body.global_category_id);
     } catch (error) {
-        res.status(500).json({ success: false });
+        res.status(500).json({ success: false, message: error.message });
     }
 };
 
@@ -48,6 +60,13 @@ const remove = async (req, res) => {
     }
 };
 
+const moveCategoriesToNewGlobal = async (req, res) => {
+    const { categoryId, newGlobalId } = req.body;
+    // Демонстрація транзакції з повним успіхом або відкатом
+    const updatedCategory = await services.moveCategoriesToNewGlobal(categoryId, newGlobalId);
+    if(updatedCategory) res.redirect('/');
+};
+
 module.exports = {
     getAll,
     create,
@@ -55,5 +74,7 @@ module.exports = {
     remove,
     showCreateForm,
     showUpdateForm,
+    showMoveForm,
+    moveCategoriesToNewGlobal,
     getAllCategoriesByGlobalCategory,
 };

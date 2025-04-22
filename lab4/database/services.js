@@ -25,49 +25,42 @@ const testConnection = async () => {
     }
 };
 
-const executeQuery = async (query, params = []) => {
+const executeQuery = async (text, params) => {
     const client = await pool.connect();
     try {
-        const result = await client.query(query, params);
+        const result = await client.query(text, params);
         return result.rows;
-    } catch (error) {
-        console.error('Помилка виконання запиту:', error);
-        throw error;
     } finally {
         client.release();
     }
 };
 
-const getTableNames = async () => {
-    const query = `
-        SELECT table_name 
-        FROM information_schema.tables 
-        WHERE table_schema = 'public'
-    `;
-    return await executeQuery(query);
+const beginTransaction = async () => {
+    const client = await pool.connect();
+    await client.query('BEGIN');
+    return client;
 };
 
-const getTableStructure = async (tableName) => {
-    // Перевіряємо, чи існує така таблиця для безпеки
-    const tables = await getTableNames();
-    const tableExists = tables.some(table => table.table_name === tableName);
-
-    if (!tableExists) {
-        throw new Error(`Таблиця "${tableName}" не існує`);
+const commitTransaction = async (client) => {
+    try {
+        await client.query('COMMIT');
+    } finally {
+        client.release();
     }
+};
 
-    const query = `
-        SELECT column_name, data_type, is_nullable, column_default
-        FROM information_schema.columns
-        WHERE table_schema = 'public' AND table_name = $1
-        ORDER BY ordinal_position`;
-
-    return await executeQuery(query, [tableName]);
+const rollbackTransaction = async (client) => {
+    try {
+        await client.query('ROLLBACK');
+    } finally {
+        client.release();
+    }
 };
 
 module.exports = {
     executeQuery,
-    getTableNames,
-    getTableStructure,
-    testConnection
+    testConnection,
+    beginTransaction,
+    commitTransaction,
+    rollbackTransaction
 };

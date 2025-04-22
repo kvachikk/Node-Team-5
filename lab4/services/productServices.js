@@ -1,76 +1,91 @@
-const { executeQuery } = require('../database/services');
-const {query} = require("express");
+const { executeQuery, beginTransaction, commitTransaction, rollbackTransaction } = require('../database/services');
 
-const getAllProducts = async () => {
-    return await executeQuery(query, params);
+const getAll = async () => {
+    return await executeQuery('SELECT * FROM products');
 };
 
-const getAllProductsByCategoryId = async (id) => {
+const getById = async (id) => {
+    const results = await executeQuery('SELECT * FROM products WHERE id = $1', [id]);
+    return results[0] || null;
+};
+
+const getAllByCategoryId = async (id) => {
     return (await executeQuery('SELECT * FROM products WHERE category_id = $1', [id])) || null;
 };
 
-const getProductById = async (id) => {
-    return (await executeQuery('SELECT * FROM products WHERE id = $1', [id])) || null;
-};
+const create = async (productData) => {
+    const client = await beginTransaction();
 
-const createProduct = async (productData) => {
-    const { name, description, image_url, price, stock_quantity, category_id } = productData;
-    const query = `
-        INSERT INTO products (name, description, image_url, price, stock_quantity, category_id)
-        VALUES ($1, $2, $3, $4, $5, $6)
+    try {
+        const { name, description, image_url, price, stock_quantity, category_id } = productData;
+        const query = `
+            INSERT INTO products (name, description, image_url, price, stock_quantity, category_id)
+            VALUES ($1, $2, $3, $4, $5, $6)
             RETURNING *
-    `;
-    const results = await executeQuery(query, [
-        name, description, image_url, price, stock_quantity, category_id
-    ]);
-    return results[0];
+        `;
+
+        const results = await client.query(query, [
+            name, description, image_url, price, stock_quantity, category_id
+        ]);
+
+        await commitTransaction(client);
+        return results.rows[0];
+    } catch (error) {
+        await rollbackTransaction(client);
+        throw error;
+    }
 };
 
-const updateProduct = async (id, productData) => {
-    const { name, description, image_url, price, stock_quantity, category_id } = productData;
-    const query = `
-        UPDATE products
-        SET name = $1, description = $2, image_url = $3, 
-            price = $4, stock_quantity = $5, category_id = $6
-        WHERE id = $7
-        RETURNING *
-    `;
-    const results = await executeQuery(query, [
-        name, description, image_url, price, stock_quantity, category_id, id
-    ]);
-    return results[0] || null;
+const update = async (id, productData) => {
+    const client = await beginTransaction();
+
+    try {
+        const { name, description, image_url, price, stock_quantity, category_id } = productData;
+        const query = `
+            UPDATE products
+            SET name = $1, description = $2, image_url = $3, 
+                price = $4, stock_quantity = $5, category_id = $6
+            WHERE id = $7
+            RETURNING *
+        `;
+
+        const results = await client.query(query, [
+            name, description, image_url, price, stock_quantity, category_id, id
+        ]);
+
+        await commitTransaction(client);
+        return results.rows[0] || null;
+    } catch (error) {
+        await rollbackTransaction(client);
+        throw error;
+    }
 };
 
-const deleteProduct = async (id) => {
-    const query = 'DELETE FROM products WHERE id = $1 RETURNING *';
-    const results = await executeQuery(query, [id]);
-    return results[0] || null;
+const remove = async (id) => {
+    const client = await beginTransaction();
+
+    try {
+        const query = 'DELETE FROM products WHERE id = $1 RETURNING *';
+        const results = await client.query(query, [id]);
+
+        await commitTransaction(client);
+        return results.rows[0] || null;
+    } catch (error) {
+        await rollbackTransaction(client);
+        throw error;
+    }
 };
 
-const updateProductStock = async (id, quantity) => {
-    const query = 'UPDATE products SET stock_quantity = $1 WHERE id = $2 RETURNING *';
-    const results = await executeQuery(query, [quantity, id]);
-    return results[0] || null;
-};
-
-const searchProducts = async (searchTerm) => {
-    const query = `
-        SELECT * FROM products
-        WHERE 
-            name ILIKE $1 OR
-            description ILIKE $1
-        ORDER BY name
-    `;
-    return await executeQuery(query, [`%${searchTerm}%`]);
+const search = async (searchTerm) => {
+    return await executeQuery(`SELECT * FROM products WHERE name ILIKE $1 OR description ILIKE $1 ORDER BY name`, [`%${searchTerm}%`]);
 };
 
 module.exports = {
-    getAllProducts,
-    getProductById,
-    getAllProductsByCategoryId,
-    createProduct,
-    updateProduct,
-    deleteProduct,
-    updateProductStock,
-    searchProducts
+    getAll,
+    getById,
+    getAllByCategoryId,
+    create,
+    update,
+    remove,
+    search
 };
