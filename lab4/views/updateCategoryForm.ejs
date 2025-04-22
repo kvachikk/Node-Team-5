@@ -65,7 +65,7 @@
                 global_category_id: globalCategoryId
             };
 
-            fetch(`${baseUrl}/update`, {
+            fetch(`${baseUrl}/categories/update`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -74,7 +74,7 @@
             })
             .then(response => {
                 if (response.ok) {
-                    window.location.href = `/`;
+                    window.location.href = `/categories/${globalCategoryId}`;
                 } else {
                     alert('Помилка при оновленні категорії');
                 }
