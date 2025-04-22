@@ -11,6 +11,6 @@ router.get('/update/:id', controller.showUpdateForm);
 router.post('/create', controller.create);
 router.post('/update/:id', controller.update);
 router.delete('/delete/:id', controller.remove);
-router.get('/category/:id', controller.getAllByCategoryId);
+router.get('/categories/:id', controller.getAllByCategoryId);
 
 module.exports = router;
