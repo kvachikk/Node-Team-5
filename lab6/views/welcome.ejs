@@ -18,7 +18,7 @@
             <a href="/categories/form/move" class="btn btn-primary">Перемістити категорії</a>
         </div>
         <div class="col-auto">
-            <a href="showForm" class="btn btn-primary">Додати сюди категорію</a>
+            <a href="/form/create" class="btn btn-primary">Додати сюди категорію</a>
         </div>
     </div>
 
@@ -33,9 +33,9 @@
                             <p class="card-text"><%= c.description %></p>
                         <% } %>
                         <div class="d-flex justify-content-between mt-3">
-                            <a href="categories/<%= c.id %>" class="btn btn-primary">Переглянути</a>
+                            <a href="/categories/global/<%= c.id %>" class="btn btn-primary">Переглянути</a>
                             <div>
-                                <a href="showUpdateForm/<%= c.id %>" class="btn btn-warning me-2">
+                                <a href="/form/update/<%= c.id %>" class="btn btn-warning me-2">
                                     <i class="bi bi-pencil"></i>
                                 </a>
                                 <button type="button" class="btn btn-danger delete-category" data-category-id="<%= c.id %>">
@@ -48,6 +48,18 @@
             </div>
         <% }) %>
     </div>
+    <% if (max_page > 1) {%>
+        <div>
+            <% let disabled_p=page==1 ? "disabled" : "" %>
+                <% let disabled_n=max_page <=page ? "disabled" : "" %>
+        </div>
+        <div class="page-btns">
+            <button style="background-color: #4242ff;" <%=disabled_p %>
+                onclick="location.href='?page=<%= page> 1 ? page - 1 : 1%>'">&laquo; Previous</button>
+            <button style="background-color: #4242ff;" <%=disabled_n %>
+                onclick="location.href='?page=<%= parseInt(page) + 1 %> '">Next &raquo;</button>
+        </div>
+        <% } %>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

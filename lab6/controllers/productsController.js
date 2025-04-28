@@ -47,6 +47,7 @@ const create = async (req, res) => {
     try {
         const newProduct = await services.create(req.body);
         res.status(201).json({ success: true, data: newProduct });
+        res.redirect('/products');
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }
@@ -56,7 +57,9 @@ const update = async (req, res) => {
     try {
         const updatedProduct = await services.update(req.params.id, req.body);
         if (!updatedProduct) return res.status(404).json({ success: false, message: 'Товар не знайдено' });
+        
         res.status(200).json({ success: true, data: updatedProduct });
+        res.redirect('/products');
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }
@@ -67,6 +70,7 @@ const remove = async (req, res) => {
         const deletedProduct = await services.remove(req.params.id);
         if (!deletedProduct) return res.status(404).json({ success: false, message: 'Товар не знайдено' });
         res.status(200).json({ success: true });
+        res.redirect('/products');
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }
