@@ -1,22 +1,18 @@
 const { executeQuery, beginTransaction, commitTransaction, rollbackTransaction } = require('../database/services');
 
-// Отримати всі категорії
 const getAll = async () => {
     return await executeQuery('SELECT * FROM categories');
 };
 
-// Отримати категорію за ID
 const getById = async (id) => {
     const result = await executeQuery('SELECT * FROM categories WHERE id = $1', [id]);
     return result[0] || null;
 };
 
-// Отримати категорії за глобальною категорією
 const getCategoriesByGlobalCategory = async (globalCategoryId) => {
     return await executeQuery('SELECT * FROM categories WHERE global_category_id = $1', [globalCategoryId]);
 };
 
-// Створити нову категорію
 const create = async (categoryData) => {
     const client = await beginTransaction();
     try {
@@ -38,7 +34,6 @@ const create = async (categoryData) => {
     }
 };
 
-// Оновити категорію
 const update = async (data) => {
     const client = await beginTransaction();
     try {
@@ -60,7 +55,6 @@ const update = async (data) => {
     }
 };
 
-// Видалити категорію
 const remove = async (id) => {
     const client = await beginTransaction();
     try {
@@ -73,12 +67,10 @@ const remove = async (id) => {
     }
 };
 
-// Отримати всі глобальні категорії
 const getGlobalCategories = async () => {
     return await executeQuery('SELECT * FROM global_categories');
 };
 
-// Отримати список категорій разом з назвами глобальних категорій
 const getJoinedListCategories = async () => {
     return await executeQuery(`
         SELECT c.id, c.name, c.global_category_id, g.name as global_category_name
@@ -88,7 +80,6 @@ const getJoinedListCategories = async () => {
     `);
 };
 
-// Перемістити категорії до нової глобальної категорії
 const moveCategoriesToNewGlobal = async (categoryId, newGlobalId) => {
     const client = await beginTransaction();
     try {

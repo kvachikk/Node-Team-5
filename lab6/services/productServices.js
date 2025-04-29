@@ -1,22 +1,18 @@
 const { executeQuery, beginTransaction, commitTransaction, rollbackTransaction } = require('../database/services');
 
-// Отримати всі товари
 const getAll = async () => {
     return await executeQuery('SELECT * FROM products');
 };
 
-// Отримати товар за ID
 const getById = async (id) => {
     const result = await executeQuery('SELECT * FROM products WHERE id = $1', [id]);
     return result[0] || null;
 };
 
-// Отримати товари за категорією
 const getAllByCategoryId = async (categoryId) => {
     return await executeQuery('SELECT * FROM products WHERE category_id = $1', [categoryId]);
 };
 
-// Створити товар
 const create = async (productData) => {
     const client = await beginTransaction();
     try {
@@ -37,7 +33,6 @@ const create = async (productData) => {
     }
 };
 
-// Оновити товар
 const update = async (id, productData) => {
     const client = await beginTransaction();
     try {
@@ -59,7 +54,6 @@ const update = async (id, productData) => {
     }
 };
 
-// Видалити товар
 const remove = async (id) => {
     const client = await beginTransaction();
     try {
@@ -72,7 +66,6 @@ const remove = async (id) => {
     }
 };
 
-// Пошук товарів
 const search = async (searchTerm) => {
     return await executeQuery(
         'SELECT * FROM products WHERE name ILIKE $1 OR description ILIKE $1 ORDER BY name',

@@ -1,17 +1,14 @@
 const { executeQuery, beginTransaction, commitTransaction, rollbackTransaction } = require('../database/services');
 
-// Отримати всі глобальні категорії
 const getAll = async () => {
     return await executeQuery('SELECT * FROM global_categories');
 };
 
-// Отримати глобальну категорію за ID
 const getById = async (id) => {
     const result = await executeQuery('SELECT * FROM global_categories WHERE id = $1', [id]);
     return result[0] || null;
 };
 
-// Створити нову глобальну категорію
 const create = async (data) => {
     const client = await beginTransaction();
     try {
@@ -32,7 +29,6 @@ const create = async (data) => {
     }
 };
 
-// Оновити глобальну категорію
 const update = async (data) => {
     const client = await beginTransaction();
     try {
@@ -54,11 +50,9 @@ const update = async (data) => {
     }
 };
 
-// Видалити глобальну категорію
 const remove = async (id) => {
     const client = await beginTransaction();
     try {
-        // Перевірка на наявність дочірніх категорій
         const check = await client.query('SELECT COUNT(*) FROM categories WHERE global_category_id = $1', [id]);
         if (parseInt(check.rows[0].count) > 0) {
             throw new Error('Неможливо видалити глобальну категорію, яка містить дочірні категорії');
