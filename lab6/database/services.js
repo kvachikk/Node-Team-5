@@ -2,17 +2,17 @@ const { Pool } = require('pg');
 require('dotenv').config();
 
 const pool = new Pool({
-    host: 'ep-sparkling-darkness-a2vxyb6q-pooler.eu-central-1.aws.neon.tech',
-    port: '5432',
-    user: 'storedb_owner',
-    password: 'npg_7KiYBHt9nvMr',
-    database: 'storedb',
+    host: process.env.PG_HOST,
+    port: process.env.PG_PORT,
+    user: process.env.PG_USER,
+    password: process.env.PG_PASSWORD,
+    database: process.env.PG_DATABASE,
     ssl: {
         rejectUnauthorized: false
     },
     max: 10,
-    idleTimeoutMillis: 50000,
-    connectionTimeoutMillis: 20000,
+    idleTimeoutMillis: 30000,
+    connectionTimeoutMillis: 10000,
 });
 
 const testConnection = async () => {
