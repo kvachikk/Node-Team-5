@@ -1,0 +1,247 @@
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+.card {
+    transition: transform 0.2s;
+    margin-bottom: 1rem;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.category-card, .product-card {
+    height: 100%;
+}
+
+.category-card .card-body, .product-card .card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.category-card .card-title, .product-card .card-title {
+    margin-bottom: 1rem;
+}
+
+.category-card .btn-group, .product-card .btn-group {
+    margin-top: auto;
+}
+
+#search-product, #category-filter {
+    margin-bottom: 1rem;
+}
+
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.container {
+    max-width: 1200px;
+}
+
+.modal-content {
+    border-radius: 10px;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+
+/* Home page category cards */
+.category-content {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #dee2e6;
+}
+
+.subcategory-item, .product-item {
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+}
+
+.subcategory-item:hover, .product-item:hover {
+    background-color: #e9ecef;
+}
+
+.toggle-content {
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.category-card {
+    min-height: 200px;
+}
+
+.category-card .card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.category-card .card-title {
+    margin-bottom: 1rem;
+}
+
+.category-card .toggle-content {
+    margin-top: auto;
+}
+
+/* Category cards */
+.category-card, .subcategory-card, .parent-card {
+    height: 100%;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.category-card:hover, .subcategory-card:hover, .parent-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.subcategory-card .card-body, .parent-card .card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.subcategory-card .btn, .parent-card .btn {
+    margin-top: auto;
+}
+
+/* Section headers */
+#subcategories-list h4 {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+/* Parent category cards */
+.parent-card {
+    background-color: #f8f9fa;
+}
+
+.parent-card .card-body {
+    padding: 1rem;
+}
+
+/* Style for category navigation */
+.breadcrumb {
+    background-color: #f8f9fa;
+    padding: 0.75rem 1rem;
+    border-radius: 0.25rem;
+    margin-bottom: 1rem;
+}
+
+/* Relationships page */
+#relationships-page .card {
+    margin-bottom: 2rem;
+}
+
+#relationships-page .card-header {
+    background-color: #f8f9fa;
+    font-weight: 500;
+}
+
+#relationships-page .table {
+    margin-bottom: 0;
+}
+
+#relationships-page .btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+#relationships-page select {
+    width: 100%;
+}
+
+#relationship-form,
+#move-relationship-form {
+    padding: 1rem 0;
+}
+
+/* Empty state */
+.empty-state {
+    text-align: center;
+    padding: 2rem;
+    color: #6c757d;
+}
+
+.empty-state i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #relationships-page .col-md-2,
+    #relationships-page .col-md-3,
+    #relationships-page .col-md-4,
+    #relationships-page .col-md-5 {
+        margin-bottom: 1rem;
+    }
+    
+    #relationships-page .d-flex.align-items-end {
+        align-items: flex-start !important;
+    }
+}
+
+/* Pagination styles */
+.pagination-container {
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.pagination {
+    justify-content: center;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.pagination .page-link {
+    color: #007bff;
+}
+
+.pagination .page-link:hover {
+    color: #0056b3;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #6c757d;
+    pointer-events: none;
+    background-color: #fff;
+    border-color: #dee2e6;
+}
